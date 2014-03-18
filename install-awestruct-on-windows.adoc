@@ -1,0 +1,232 @@
+= Installing Awestruct on Windows
+:ruby-installer: http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-1.9.3-p545.exe?direct1.9.3
+:eisele: http://blog.eisele.net/2013/07/awestruct-w-aciidoctor-on-windows-w-jruby.html
+
+Awestruct documentation is very sparse about on how to actually use it. Whereas it is probably obvious for Rubyists and non-problematic for Mac OS / Linux guys, there are quite lots of obstacles to the unitiated Java guy running Windows.
+ 
+There is an {eisele}[blog entry] from Markus Eisele on running awestruct with JRuby on Windows, but it didn't quite work for me. So instead I downloaded {ruby-installer}[Ruby 1.9.3] and tried to do it on my own.
+
+== RVM
+
+Many instructions for building Awestruct sites recommend using RVM, which is basically a set of bash (unix shell) extensions for supporting isolation of ruby and Gem installations. Not something really applicable to Windows platform (yes, I managed to run it with cygwin, but you need few hacks to have it running, at least with jruby).
+
+== Installing with RMI Ruby
+
+Create a folder for your awestruct awesomeness, open your Command prompt and start:
+
+----
+> gem install awestruct bundler
+...
+25 gems installed
+
+> awestruct --init --framework=foundation
+
+C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- asciidoctor (LoadError)
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/tilt-2.0.0/lib/tilt/asciidoc.rb:2:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/template/asciidoc.rb:4:in `<module:Tilt>'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/template/asciidoc.rb:3:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/asciidoctor_handler.rb:5:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handler_chains.rb:6:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/pipeline.rb:2:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:6:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/generate.rb:1:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:4:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:6:in `<top (required)>'
+        from C:/Ruby193/bin/awestruct:23:in `load'
+        from C:/Ruby193/bin/awestruct:23:in `<main>'
+----
+
+Didn't bring us very far. But from the message it looks we're missing a gem, so let's install it, I wanted to use http://asciidoctor.org[asciidoctor] anyway.
+
+----
+> gem install asciidoctor
+> awestruct --init --framework=foundation
+
+...
+
+Now you're awestruct!
+
+To generate and run your site in development mode, execute:
+
+  awestruct -d
+
+or, simply:
+
+  rake
+
+then visit your site at: http://localhost:4242
+
+Create file: C:/.../_config/site.yml
+Create file: C:/.../_layouts/base.html.haml
+Create file: C:/.../index.html.haml
+Permission denied - C:/.../_ext/pipeline.rb
+
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:178:in `unlink'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:178:in `block in perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:177:in `open'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:177:in `perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:77:in `block in perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:75:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/manifest.rb:75:in `perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/init.rb:68:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:91:in `invoke_init'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:44:in `invoke!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:9:in `<top (required)>'
+C:/Ruby193/bin/awestruct:23:in `load'
+C:/Ruby193/bin/awestruct:23:in `<main>'
+----
+
+This is a https://github.com/awestruct/awestruct/issues/314[known issue], which is fixed in 0.5.4.rc. But unitiated Windows guy does not know how to install rc gems, so he ignores this one and fights on.
+
+----
+> awestruct -d
+
+ERROR: Failed to render: /stylesheets/app.scss
+Sass::SyntaxError: File to import not found or unreadable: foundation.
+Load paths:
+  C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/frameworks/blueprint/stylesheets
+  C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets
+  C:/.../stylesheets
+C:/.../stylesheets/app.scss:8
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/import_node.rb:67:in `rescue in import'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/import_node.rb:45:in `import'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/import_node.rb:28:in `imported_file'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/import_node.rb:37:in `css_import?'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:217:in `visit_import'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/visitors/perform.rb:7:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/tree/root_node.rb:20:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/engine.rb:315:in `_render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.15/lib/sass/engine.rb:262:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/tilt-2.0.0/lib/tilt/sass.rb:17:in `evaluate'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/tilt-2.0.0/lib/tilt/template.rb:97:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/base_tilt_handler.rb:109:in `rendered_content'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/page.rb:134:in `rendered_content'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:312:in `generate_page'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:291:in `block in generate_output'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:286:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:286:in `generate_output'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:72:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/generate.rb:20:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:103:in `invoke_generate'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:47:in `invoke!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:9:in `<top (required)>'
+C:/Ruby193/bin/awestruct:23:in `load'
+C:/Ruby193/bin/awestruct:23:in `<main>'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/page.rb:149:in `rescue in rendered_content'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/page.rb:132:in `rendered_content'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:312:in `generate_page'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:291:in `block in generate_output'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:286:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:286:in `generate_output'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:72:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/generate.rb:20:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:103:in `invoke_generate'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:47:in `invoke!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:9:in `<top (required)>'
+C:/Ruby193/bin/awestruct:23:in `load'
+C:/Ruby193/bin/awestruct:23:in `<main>'
+----
+
+This one took little longer to figure out. What awestruct wanted to add to file `_ext/pipeline.rb` was this at the top:
+
+[source,ruby]
+._ext/pipeline.rb, line 1
+----
+require 'zurb-foundation'
+----
+
+So this leads us to final exception:
+
+----
+> awestruct -d
+
+Listen::Listener:0x415fba8> (NoMethodError)
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:120:in `invoke_auto'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:50:in `invoke!'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:9:in `<top (required)>'
+        from C:/Ruby193/bin/awestruct:23:in `load'
+        from C:/Ruby193/bin/awestruct:23:in `<main>'
+----
+
+https://github.com/awestruct/awestruct/issues/381#issuecomment-33702397[This issue] shows solution for this. But it will work only when you will use `bundle exec awestruct` or `rake` from now on. Add following to your Gemfile:
+
+[source,ruby]
+.Gemfile, last line
+----
+gem 'listen', '<2.0.0' 
+----
+
+Then run these and watch how it works:
+
+----
+> bundle update listen
+> rake
+
+...
+c:/Ruby193/lib/ruby/gems/1.9.1/gems/tilt-2.0.0/lib/tilt/asciidoc.rb:2:in `require': cannot load such file -- asciidoctor (LoadError)
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/tilt-2.0.0/lib/tilt/asciidoc.rb:2:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/template/asciidoc.rb:4:in `<module:Tilt>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/template/asciidoc.rb:3:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/asciidoctor_handler.rb:5:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handlers/asciidoctor_handler.rb:5:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handler_chains.rb:6:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/handler_chains.rb:6:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/pipeline.rb:2:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/pipeline.rb:2:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:6:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/engine.rb:6:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/generate.rb:1:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/generate.rb:1:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:4:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/lib/awestruct/cli/invoker.rb:4:in `<top (required)>'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:6:in `require'
+        from c:/Ruby193/lib/ruby/gems/1.9.1/gems/awestruct-0.5.3/bin/awestruct:6:in `<top (required)>'
+        from c:/Ruby193/bin/awestruct:23:in `load'
+        from c:/Ruby193/bin/awestruct:23:in `<main>'
+----
+
+So here we are again. Eventhough `Gemfile.lock` indicates, that asciidoctor is a transitive dependency, but it doesn't help. So let's add it to Gemfile explicitly.
+
+[source,ruby]
+.Gemfile, uncomment
+----
+gem 'asciidoctor', '>= 0.1.1'                           # If using AsciiDoc syntax, need 0.1.1 for Header support
+----
+
+And run!
+----
+> rake
+----
+
+Finally no errors, and your page at http://localhost:4242 works!
+
+== Installing with JRuby
+
+I also tried JRuby and I can conclude this article with observation, that JRuby is really compatible with RMI Ruby. Errors are exactly the same down to the last stacktrace. The only difference is, that https://github.com/jruby/jruby/issues/1115[Ctrl+C will not stop the WEBrick HTTP server], making it unusable for the writing process.

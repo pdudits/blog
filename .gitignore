@@ -1,0 +1,6 @@
+/.awestruct/
+/.bundle/
+/.sass-cache/
+/_site/
+/_tmp/
+Gemfile.lock
