@@ -1,0 +1,24 @@
+---
+layout: base
+---
+.row
+  .large-6.columns
+    h1 Patrik Duditš
+  .large-6.columns
+    h1.right
+      small Development Blog
+
+.row
+  .large-4.columns
+    p Patrik is Java architect currently focused at Java EE 6/7.
+
+  .large-8.columns
+    .panel
+      - post = site.posts.first
+      h4
+        a href=post.url =post.title
+      p
+        small Posted on #{post.date}
+      h5.subheader.clearfix
+        =post.content[/<p>(.+?)<\/p>/,1]
+        a.right href="#{post.url}" Read more
