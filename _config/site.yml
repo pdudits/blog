@@ -1,4 +1,9 @@
-name: Project Name
-title: Baked with Awestruct
+#coding: UTF-8
+#but everywhere I look they say UTF-8 is the default
+name: "Patrik Duditš"
+title: Patrik Duditš - Development blog
 org: Organization
 base_url: ''
+asciidoctor:
+  :attributes:
+    source-highlighter: coderay

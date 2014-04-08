@@ -1,4 +1,5 @@
 require 'zurb-foundation'
+require 'sass_functions'
 
 Awestruct::Extensions::Pipeline.new do
 
