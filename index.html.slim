@@ -23,20 +23,20 @@ layout: common
     .panel
       - post = site.posts.first
       h4
-        a href=post.url #{post.title}
+        a href=relative(post.url) = post.title
       p
         small Posted on #{post.date}
       h5.subheader.clearfix
         =post.content[/<p>(.+?)<\/p>/,1]
-        a.right href="#{post.url}" Read more
+        a.right href=relative(post.url) Read more
 .row
   - for post in site.posts[1..3]
     .large-4.columns
       h5
-        a href=post.url = post.title
+        a href=relative(post.url) = post.title
       p
         small Posted on #{post.date}
       p.subheader.clearfix 
         =post.content[/<p>(.+?)<\/p>/,1]
-        a.tiny.radius.secondary.right href=post.url
+        a.tiny.radius.secondary.right href=relative(post.url)
           small Read>

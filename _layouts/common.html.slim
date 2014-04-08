@@ -5,10 +5,10 @@ head
   meta charset='utf-8'
   meta name='viewport' content='width=device-width initial-scale=1.0'
   title =site.title
-  link rel='stylesheet' href="#{site.base_url}/stylesheets/app.css"
-  script src="#{site.base_url}/javascripts/vendor/custom.modernizr.js"
+  link rel='stylesheet' href=relative('/stylesheets/app.css')
+  script src=relative("/javascripts/vendor/custom.modernizr.js")
   script src="http://use.edgefonts.net/pt-sans:n4,i4,n7,i7:all;raleway:n1:all.js"
-  link rel='author' type='text/plain' href="#{site.base_url}/humans.txt"
+  link rel='author' type='text/plain' href=relative("/humans.txt")
 body
   =content
 
