@@ -1,0 +1,42 @@
+= Awestruct rake tests failing on windows
+:revdate: 2014-03-22 14:30:00 +0100
+:awestruct-tags: [ruby, awestruct]
+
+Ruby on Windows really seems to be a minefield of various dependency problems. Like `undefined method `debug?' for nil:NilClass (NoMethodError)`.
+
+== Symptoms
+For example, when trying to build Awestruct on windows platform, it looks like this:
+
+[source,ruby] 
+----
+C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:7:in `rescue in block in <top (required)>': undefined method `debug?' for nil:NilClass (NoMethodError)
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:3:in `block in <top (required)>'
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:2:in `each'
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:2:in `<top (required)>'
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/engine.rb:10:in `require'
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/engine.rb:10:in `<top (required)>'
+        from C:/Users/Patrik/devel/awestruct/spec/engine_spec.rb:2:in `require'
+        from C:/Users/Patrik/devel/awestruct/spec/engine_spec.rb:2:in `<top (required)>'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in `load'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in `block in load_spec_files'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in `each'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in `load_spec_files'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/command_line.rb:22:in `run'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/runner.rb:80:in `run'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/runner.rb:17:in `block
+in autorun'
+----
+
+== Cause
+YUI compressor 0.9.6 (which is an old version, but that's what htmlcompressor, one of Awestruct's dependencies dictates) depends on gem popen4, which on Windows platform in turn depends on win32/popen3. which in turn doesn't exist on Windows Ruby 1.9.3.
+
+== Solution
+Add gem dependency
+
+[source,ruby]
+----
+gem "win32-open3-19", :platforms => :mingw
+----
+
+== Java guy wonders
+Why I had to find the cause by adding `puts` statements in standard libraries, instead seing stack trace of the actual cause in the error?
