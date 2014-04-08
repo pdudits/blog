@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+#  - 1.9.3
+  - 2.0.0
+env:
+  global:
+    # created using `travis encrypt -r asciidoctor/asciidoctor.org`
+    # GIT_N=<git name> GIT_E=<git email> GH_U=<github username> GH_T=<github oauth token>
+    secure: Wa+WTnxtCvYtH5xrYfVkUD47TGZHZerRs0Nmq2OwXccFJ/H5NAQKWvQAH75p+byMGMNrMkrcejGZfRrCiHr8aMeN5J0aNTlBwVGezNhvu+U4jQBzBQsUPxiXg+PhiHtBxUaODrEXdbFXot6KzOIX+Tlnbzz3zKltJI4hdtkbFB4=
+branches:
+  only:
+    - master
+script: rake travis
