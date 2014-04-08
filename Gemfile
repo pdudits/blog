@@ -24,7 +24,7 @@
 
 source 'https://rubygems.org'                             # This tells Bundler where to look for gems
 
-gem 'awestruct', '>=0.5.3'                               # Goes without saying
+gem 'awestruct', '=0.5.4.rc'                               # Goes without saying
 gem 'rake', '>= 0.9.2'                                    # Needed for the Rakefile to work
 # gem 'coffee-script', '>= 2.2.0'                         # If using coffee-script or to remove the warning
 # gem 'therubyracer', '0.10.0', :platforms => :ruby       # Javascript runtime on mri (needed for LESS and coffee-script)
@@ -39,3 +39,5 @@ gem 'slim', '>= 1.3.6'                                  # If using slim instead 
 # gem 'htmlcompressor', '>= 0.0.3'                        # If using the minify transformer
 gem 'listen', '<2.0.0'
 gem 'coderay'
+gem 'tilt', '<2.0.0'
+gem 'git'

@@ -8,16 +8,10 @@ asciidoctor:
   :attributes:
     source-highlighter: coderay
 profiles:
-  development:
-    deploy: nil
-  staging:
-    deploy: nil
   production:
     base_url: http://pdudits.github.io/blog
     disqus_developer: false
     compass_output_style: :compressed
-    # TODO enable minify once we verify it's working as expected
-    #minify: true
     deploy:
       host: github_pages
       branch: gh-pages    
