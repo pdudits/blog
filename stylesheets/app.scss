@@ -87,4 +87,12 @@
 
 h1 {
 	font-family: raleway, sans-serif;
+
+    i.label {
+      color: $topbar-bg-color;
+    }
+}
+
+.subheader code {
+  white-space: inherit;
 }
