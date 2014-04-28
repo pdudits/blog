@@ -11,7 +11,8 @@ p: small
   | Posted on #{page.post.date}
   - if !page.post.tags.empty?
     i.label.icon-tags<
-    =< page.post.tag_links
+    - for tag in page.post.tags
+      a< href=relative(tag.primary_page.url, base_page) =tag
 *{:tag => teaser_tag, :class => teaser_class}
   =page.post.content.match(/<p>(.+?)<\/p>/m)[1]
   a *{:class => read_class, :href => relative(page.post.url, base_page)} =read_text
