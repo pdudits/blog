@@ -21,22 +21,8 @@ layout: common
 
   .large-8.columns#last-post
     .panel
-      - post = site.posts.first
-      h4
-        a href=relative(post.url) = post.title
-      p
-        small Posted on #{post.date}
-      h5.subheader.clearfix
-        =post.content[/<p>(.+?)<\/p>/,1]
-        a.right href=relative(post.url) Read more
+      = partial('entry.html.slim', :post => site.posts.first, :title_tag=>'h4', :teaser_tag=>'h5')
 .row
   - for post in site.posts[1..3]
     .large-4.columns
-      h5
-        a href=relative(post.url) = post.title
-      p
-        small Posted on #{post.date}
-      p.subheader.clearfix 
-        =post.content[/<p>(.+?)<\/p>/,1]
-        a.tiny.radius.secondary.right href=relative(post.url)
-          small Read>
+      = partial('entry.html.slim', :post => post, :read_class=>['tiny','secondary','right'], :read_text=>'<small>Read&gt</small>')

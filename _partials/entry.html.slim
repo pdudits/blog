@@ -1,0 +1,17 @@
+- title_tag = page.title_tag || 'h5'
+- teaser_tag = page.teaser_tag || 'p'
+- teaser_class = page.teaser_class || ['subheader','clearfix']
+- read_class = page.read_class || 'right'
+- read_text = page.read_text || 'Read more'
+- base_page = page.base_page || page
+
+*{:tag => title_tag}
+  a href=relative(page.post.url, base_page) = page.post.title
+p: small
+  | Posted on #{page.post.date}
+  - if !page.post.tags.empty?
+    i.label.icon-tags<
+    =< page.post.tag_links
+*{:tag => teaser_tag, :class => teaser_class}
+  =page.post.content.match(/<p>(.+?)<\/p>/m)[1]
+  a *{:class => read_class, :href => relative(page.post.url, base_page)} =read_text

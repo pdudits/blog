@@ -1,0 +1,57 @@
+= Adding tags to awestruct site
+:awestruct-tags: [ruby, awestruct]
+:revdate: 2014-04-28T23:30+0200
+
+Steps I've done to support tag listings on an awestruct site, some of which I learnt from awestruct source code. I also
+added a versatile partial for blog entries with parameterizable styling options
+
+== First, add helper
+Just as http://awestruct.org/extensions/tagger/[the documentation] says, add extension with default setting to
+`pipeline.rb` as well as `awestruct-tags` attribute to you ascii doc file. This will generate tag summaries in
+directory `tags/`.
+
+So the first line without apostrophes matches, right?
+
+== The tag page
+
+With that default line, you'll end up with a copies of your home page, which is not what you probably want, unless you
+have pagination there. I don't paginate on my home page (yet), so that lead to some head scratching.
+This behaviour is caused by the second argument called `input_path`. That should point to a page, that iterates over
+`page.posts` -- in the same way like used in Paginator extension. The tag of a page is passed via `page.selected_tag`.
+
+I've put the template for this into `_layouts\tag\index.html.slim`. This has nice consequence, that index.html is
+generated in those folders.
+
+== Versatile partial styling with Slim engine
+
+To support different tags and classes I created a partial, which I invoke similar to this
+
+[source,slim]
+----
+ = partial('entry.html.slim', :post => post, :read_class=>['tiny','secondary','right'], read_text=>'Read>')
+----
+
+The interesting parts of the implementation of partial are these:
+
+[source,slim]
+----
+- title_tag = page.title_tag || 'h5' #<1>
+- read_class = page.read_class || ['right','tiny']
+- read_text = page.read_text || 'Read more'
+- base_page = page.base_page || page
+
+*{:tag => title_tag} #<2>
+  a href=relative(page.post.url, base_page) = page.post.title #<3>
+a *{:class => read_class, :href => relative(page.post.url, base_page)} =read_text #<4>
+----
+<1> The map from source is passed to page variable
+<2> Slim's dynamic tag will render element with name specified by `:tag`, every other key specifies an attribute
+<3> Relative Helper seems to be broken in generated tag page, where it misses the correct path to the root. I worked
+    that around by passing `:base_page => page` to the partial in tag template page.
+<4> If an array is passed to attribute like `class`, it will be merged
+
+== Todo
+
+One time, when there will be lots of posts on many topic on this blog, I would like to put the posts in directories
+representing category, like _ruby_ or _java_. These should be then also used as a tag. So far I manually tagged all
+three posts ;-)
