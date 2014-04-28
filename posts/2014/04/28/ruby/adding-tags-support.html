@@ -1,0 +1,91 @@
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head><meta charset="utf-8"><meta name="viewport" content="width=device-width initial-scale=1.0"><title>Patrik Duditš - Development blog</title><link rel="stylesheet" href="../../../../../stylesheets/app.css"><script src="../../../../../javascripts/vendor/custom.modernizr.js"></script><script src="http://use.edgefonts.net/pt-sans:n4,i4,n7,i7:all;raleway:n1:all.js"></script><link rel="author" type="text/plain" href="../../../../../humans.txt"></head><body><nav class="top-bar"><ul class="title-area"><li class="name"><h1><a href="http://pdudits.github.io/blog/">Patrik Duditš</a></h1></li><li class="toggle-topbar menu-icon"><a href="#"><span>hello</span></a></li></ul><section class="top-bar-section"><ul class="right"><li class="divider"><li><a href="http://pdudits.github.io/blog/">Home</a></li></li></ul></section></nav><div class="row"><div class="large-12 columns"><h1>Adding tags to awestruct site</h1><div id="post"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Steps I&#8217;ve done to support tag listings on an awestruct site, some of which I learnt from awestruct source code. I also
+added a versatile partial for blog entries with parameterizable styling options</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_first_add_helper">First, add helper</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just as <a href="http://awestruct.org/extensions/tagger/">the documentation</a> says, add extension with default setting to
+<code>pipeline.rb</code> as well as <code>awestruct-tags</code> attribute to you ascii doc file. This will generate tag summaries in
+directory <code>tags/</code>.</p>
+</div>
+<div class="paragraph">
+<p>So the first line without apostrophes matches, right?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_tag_page">The tag page</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With that default line, you&#8217;ll end up with a copies of your home page, which is not what you probably want, unless you
+have pagination there. I don&#8217;t paginate on my home page (yet), so that lead to some head scratching.
+This behaviour is caused by the second argument called <code>input_path</code>. That should point to a page, that iterates over
+<code>page.posts</code>&#8201;&#8212;&#8201;in the same way like used in Paginator extension. The tag of a page is passed via <code>page.selected_tag</code>.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve put the template for this into <code>_layouts\tag\index.html.slim</code>. This has nice consequence, that index.html is
+generated in those folders.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_versatile_partial_styling_with_slim_engine">Versatile partial styling with Slim engine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To support different tags and classes I created a partial, which I invoke similar to this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="slim language-slim"> = partial('entry.html.slim', :post =&gt; post, :read_class=&gt;['tiny','secondary','right'], read_text=&gt;'Read&gt;')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The interesting parts of the implementation of partial are these:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="slim language-slim">- title_tag = page.title_tag || 'h5' <b>(1)</b>
+- read_class = page.read_class || ['right','tiny']
+- read_text = page.read_text || 'Read more'
+- base_page = page.base_page || page
+
+*{:tag =&gt; title_tag} <b>(2)</b>
+  a href=relative(page.post.url, base_page) = page.post.title <b>(3)</b>
+a *{:class =&gt; read_class, :href =&gt; relative(page.post.url, base_page)} =read_text <b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>The map from source is passed to page variable</p>
+</li>
+<li>
+<p>Slim&#8217;s dynamic tag will render element with name specified by <code>:tag</code>, every other key specifies an attribute</p>
+</li>
+<li>
+<p>Relative Helper seems to be broken in generated tag page, where it misses the correct path to the root. I worked
+that around by passing <code>:base_page =&gt; page</code> to the partial in tag template page.</p>
+</li>
+<li>
+<p>If an array is passed to attribute like <code>class</code>, it will be merged</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_todo">Todo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One time, when there will be lots of posts on many topic on this blog, I would like to put the posts in directories
+representing category, like <em>ruby</em> or <em>java</em>. These should be then also used as a tag. So far I manually tagged all
+three posts ;-)</p>
+</div>
+</div>
+</div></div></div></div><hr><footer class="row"><div class="large-6 columns"><p>&copy; Patrik Duditš 2014 <small>Built on Foundation. Baked by Awestruct.</small></p></div><div class="large-6 columns"><ul class="inline-list right"><li><a href="http://pdudits.github.io/blog/">Home</a></li></ul></div></footer><script>document.write('<script src=' + ('__proto__' in {} ? 'http://pdudits.github.io/blog/javascripts/vendor/zepto' : 'http://pdudits.github.io/blog/javascripts/vendor/jquery') + '.js><\/script>')</script><script src="http://pdudits.github.io/blog/javascripts/foundation/foundation.js"></script><script src="http://pdudits.github.io/blog/javascripts/foundation/foundation.topbar.js"></script><script>$(document).foundation()</script></body></html>

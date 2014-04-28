@@ -1,0 +1,64 @@
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head><meta charset="utf-8"><meta name="viewport" content="width=device-width initial-scale=1.0"><title>Patrik Duditš - Development blog</title><link rel="stylesheet" href="../../../../../stylesheets/app.css"><script src="../../../../../javascripts/vendor/custom.modernizr.js"></script><script src="http://use.edgefonts.net/pt-sans:n4,i4,n7,i7:all;raleway:n1:all.js"></script><link rel="author" type="text/plain" href="../../../../../humans.txt"></head><body><nav class="top-bar"><ul class="title-area"><li class="name"><h1><a href="http://pdudits.github.io/blog/">Patrik Duditš</a></h1></li><li class="toggle-topbar menu-icon"><a href="#"><span>hello</span></a></li></ul><section class="top-bar-section"><ul class="right"><li class="divider"><li><a href="http://pdudits.github.io/blog/">Home</a></li></li></ul></section></nav><div class="row"><div class="large-12 columns"><h1>Awestruct rake tests failing on windows</h1><div id="post"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ruby on Windows really seems to be a minefield of various dependency problems. Like <code>undefined method `debug?' for nil:NilClass (NoMethodError)</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_symptoms">Symptoms</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For example, when trying to build Awestruct on windows platform, it looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="ruby language-ruby"><span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Users</span><span class="delimiter">/</span></span><span class="constant">Patrik</span>/devel/awestruct/lib/awestruct/extensions/pipeline.rb:<span class="integer">7</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">rescue in block in &lt;top (required)&gt;': undefined method </span><span class="delimiter">`</span></span>debug?<span class="string"><span class="delimiter">'</span><span class="content"> for nil:NilClass (NoMethodError)
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:3:in `block in &lt;top (required)&gt;</span><span class="delimiter">'</span></span>
+        from <span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Users</span><span class="delimiter">/</span></span><span class="constant">Patrik</span>/devel/awestruct/lib/awestruct/extensions/pipeline.rb:<span class="integer">2</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">each'
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/extensions/pipeline.rb:2:in </span><span class="delimiter">`</span></span>&lt;top (required)&gt;<span class="string"><span class="delimiter">'</span><span class="content">
+        from C:/Users/Patrik/devel/awestruct/lib/awestruct/engine.rb:10:in `require</span><span class="delimiter">'</span></span>
+        from <span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Users</span><span class="delimiter">/</span></span><span class="constant">Patrik</span>/devel/awestruct/lib/awestruct/engine.rb:<span class="integer">10</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">&lt;top (required)&gt;'
+        from C:/Users/Patrik/devel/awestruct/spec/engine_spec.rb:2:in </span><span class="delimiter">`</span></span>require<span class="string"><span class="delimiter">'</span><span class="content">
+        from C:/Users/Patrik/devel/awestruct/spec/engine_spec.rb:2:in `&lt;top (required)&gt;</span><span class="delimiter">'</span></span>
+        from <span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Ruby193</span><span class="delimiter">/</span></span>lib/ruby/gems/<span class="float">1.9</span>.<span class="error">1</span>/gems/rspec-core-<span class="float">2.14</span>.<span class="error">8</span>/lib/rspec/core/configuration.rb:<span class="integer">896</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">load'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in </span><span class="delimiter">`</span></span>block <span class="keyword">in</span> load_spec_files<span class="string"><span class="delimiter">'</span><span class="content">
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb:896:in `each</span><span class="delimiter">'</span></span>
+        from <span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Ruby193</span><span class="delimiter">/</span></span>lib/ruby/gems/<span class="float">1.9</span>.<span class="error">1</span>/gems/rspec-core-<span class="float">2.14</span>.<span class="error">8</span>/lib/rspec/core/configuration.rb:<span class="integer">896</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">load_spec_files'
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/command_line.rb:22:in </span><span class="delimiter">`</span></span>run<span class="string"><span class="delimiter">'</span><span class="content">
+        from C:/Ruby193/lib/ruby/gems/1.9.1/gems/rspec-core-2.14.8/lib/rspec/core/runner.rb:80:in `run</span><span class="delimiter">'</span></span>
+        from <span class="key">C</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">Ruby193</span><span class="delimiter">/</span></span>lib/ruby/gems/<span class="float">1.9</span>.<span class="error">1</span>/gems/rspec-core-<span class="float">2.14</span>.<span class="error">8</span>/lib/rspec/core/runner.rb:<span class="integer">17</span><span class="symbol">:in</span> <span class="shell"><span class="delimiter">`</span><span class="content">block
+in autorun'</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cause">Cause</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>YUI compressor 0.9.6 (which is an old version, but that&#8217;s what htmlcompressor, one of Awestruct&#8217;s dependencies dictates) depends on gem popen4, which on Windows platform in turn depends on win32/popen3. which in turn doesn&#8217;t exist on Windows Ruby 1.9.3.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add gem dependency</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="ruby language-ruby">gem <span class="string"><span class="delimiter">&quot;</span><span class="content">win32-open3-19</span><span class="delimiter">&quot;</span></span>, <span class="symbol">:platforms</span> =&gt; <span class="symbol">:mingw</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_java_guy_wonders">Java guy wonders</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Why I had to find the cause by adding <code>puts</code> statements in standard libraries, instead seing stack trace of the actual cause in the error?</p>
+</div>
+</div>
+</div></div></div></div><hr><footer class="row"><div class="large-6 columns"><p>&copy; Patrik Duditš 2014 <small>Built on Foundation. Baked by Awestruct.</small></p></div><div class="large-6 columns"><ul class="inline-list right"><li><a href="http://pdudits.github.io/blog/">Home</a></li></ul></div></footer><script>document.write('<script src=' + ('__proto__' in {} ? 'http://pdudits.github.io/blog/javascripts/vendor/zepto' : 'http://pdudits.github.io/blog/javascripts/vendor/jquery') + '.js><\/script>')</script><script src="http://pdudits.github.io/blog/javascripts/foundation/foundation.js"></script><script src="http://pdudits.github.io/blog/javascripts/foundation/foundation.topbar.js"></script><script>$(document).foundation()</script></body></html>
