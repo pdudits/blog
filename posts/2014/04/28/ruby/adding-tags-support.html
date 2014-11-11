@@ -42,7 +42,7 @@ generated in those folders.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="slim language-slim"> = partial('entry.html.slim', :post =&gt; post, :read_class=&gt;['tiny','secondary','right'], read_text=&gt;'Read&gt;')</code></pre>
+<pre class="CodeRay highlight"><code data-lang="slim"> = partial('entry.html.slim', :post =&gt; post, :read_class=&gt;['tiny','secondary','right'], read_text=&gt;'Read&gt;')</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -50,14 +50,14 @@ generated in those folders.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="slim language-slim">- title_tag = page.title_tag || 'h5' <b>(1)</b>
+<pre class="CodeRay highlight"><code data-lang="slim">- title_tag = page.title_tag || 'h5' <b class="conum">(1)</b>
 - read_class = page.read_class || ['right','tiny']
 - read_text = page.read_text || 'Read more'
 - base_page = page.base_page || page
 
-*{:tag =&gt; title_tag} <b>(2)</b>
-  a href=relative(page.post.url, base_page) = page.post.title <b>(3)</b>
-a *{:class =&gt; read_class, :href =&gt; relative(page.post.url, base_page)} =read_text <b>(4)</b></code></pre>
+*{:tag =&gt; title_tag} <b class="conum">(2)</b>
+  a href=relative(page.post.url, base_page) = page.post.title <b class="conum">(3)</b>
+a *{:class =&gt; read_class, :href =&gt; relative(page.post.url, base_page)} =read_text <b class="conum">(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -70,7 +70,7 @@ a *{:class =&gt; read_class, :href =&gt; relative(page.post.url, base_page)} =re
 </li>
 <li>
 <p>Relative Helper seems to be broken in generated tag page, where it misses the correct path to the root. I worked
-that around by passing <code>:base_page =&gt; page</code> to the partial in tag template page.</p>
+that around by passing <code>:base_page &#8658; page</code> to the partial in tag template page.</p>
 </li>
 <li>
 <p>If an array is passed to attribute like <code>class</code>, it will be merged</p>
