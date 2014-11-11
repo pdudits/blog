@@ -27,3 +27,8 @@ layout: common
     .large-4.columns
       = partial('entry.html.slim', :post => post, :read_class=>['tiny','secondary','right'], \
         :read_text=>'<small>Read&gt</small>', :base_page => page)
+- if  site.posts.size > 4
+  .row
+    .small-8.small-centered.columns.text-center
+      a.button.small href="posts/"
+        See more posts  

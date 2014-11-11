@@ -1,0 +1,11 @@
+---
+layout: base
+---
+h1
+  i.label.icon-tags>
+  | Posts 
+
+- for post in page.posts
+  .row
+    .large-12
+       = partial('entry.html.slim', :post => post, :title_tag=>'h4', :teaser_tag=>'h5', :base_page=>page)
