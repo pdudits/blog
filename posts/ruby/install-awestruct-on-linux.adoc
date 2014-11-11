@@ -1,0 +1,23 @@
+= Installing Awestruct on Linux
+Patrik Duditš
+2014-11-11
+:revdate: 2014-11-11 10:00:00 +0100
+
+Actually I thought since Ruby libraries are so strongly Windows-related, no
+setup will be needed to launch this blog on Linux I had put on the thumbdrive
+for Devoxx. I was wrong.
+
+What I tried was `apt-get install rake && rake preview`. The command completed
+and virtually nothing happened. Then I recalled that I need to do `rake setup` first.
+Nothing happened as well. So I removed rake again and with trial and error I arrived
+to this sequence have it running:
+
+[source,language="bash"]
+----
+sudo gem install bundler rake
+apt-get install build-essential ruby-dev libxml2-dev libxslt-dev
+rake setup
+----
+
+And after two superb conference days, I can finally start writing down my impressions
+of Devoxx 2014!
