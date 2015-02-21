@@ -1,0 +1,76 @@
+= Devoxx 2014 Report
+:revdate: 2014-11-12T22:00+0100
+
+I was lucky enough to visit Devoxx again in 2014, and the content was marvelous. Following are my notes about the talks I've seen.
+
+== Monday
+
+I started off the conference with http://cfp.devoxx.be/2014/talk/PYQ-0556/Using_Traits,_Mixins_and_Monads_in_JVM_Languages[Using Traits, Mixins and Monads in JVM Languages] by Venkat Subramaniam. Traits and Mixins are leaner solutions to multiple inheritance, because __»Multiple inheritance is like a gorilla -- nice to look at in the Zoo, but back at home it would make havoc.«__
+
+Monads were so subtly explained I'm not sure it came through completely.
+Referential transaprency, sequencing, logging
+
+Afternoon I went to Devoxx4Kids hands on lab. Lots of stories from the session from around the world, and examples on how to drive the workshops for kids to raise the next generation on programmers. However, it might be hard to get an Nao robot for a workshop
+
+And finally Geert Bevin show mindset change he need to go through when going from java development to writing Arduino firmware for 
+Robert's Linns new controller - the Linnstrument
+
+== Tuesday
+
+Tuesday's session of Venkat was about RxJava and reactive concepts in general
+Distributed systems
+Resiliency
+
+Spark
+
+Afternoon I looked at the hackergarten, played with the LinnStrument a bit (as in music playing), and identified there is no good example of connection connection to NoSQL databases over JCA in javaee-samples project. So I might work at that later.
+
+Then we have seen Jersey implementor Martin Gajdos showing the current state of Jax-RS MVC framework.
+
+== Wednesday
+
+During the main conference keynote, Brian Goetz had a chance to finish its JavaOne technical keynote on what Java aims to do stay relevant after celebrating its 20th bithday. I had chance also to try to pursue my troubles with glassfish speaking to Oracle and Payara people.
+
+Adam Bien showed its usual opinionated view on Java EE development, this time spiced up with showing his Docker deployments. 
+Size of microservices, restricting orchestration of microservices.
+
+For enlightment I stayed in main room to see Chet Haase's talk, basically a stand up act, Best practices for practicing....
+where he showed lots of important charts, and practices that we unfortunately see from people that usually don't attempt conferences like Devoxx.
+
+James McGivern did a theoretical talk on applying probability for better ranking, decision making, simulation of behaviour and improving the decision process by filtering out noise from the input.
+
+David Blevins showed me that doing Java EE day-to-day, one quickly settles and is satisfied with what he's got. In fact, there are many areas in which Java EE APIs should be improved, further reducing repeating code. 
+A fun presentation of SpringData JPA vs CMP 2.0
+
+Gary Crawford's talk on sentiment analysis nicely explained the concepts behind doing sentiment analysis with opennlp, term index with bit streams in Redis, all done in Clojure. 
+
+I concluded the conference sessions with Geert Bevin again. He demonstrated LeapMotion and Myo, which reminded me, that touchscreens were completely irrelevant input method 10 years ago. So we need to expect more and more applications appearing that will use physical gestures - and those will not only be games.
+
+
+In the evening I went to see where WildFly is heading. It is heading towards commerical release of EAP 7, that will be probably based off WildFly 8.2. But it is nice step forward from the previous year's direction, that there would be no more releases of Wildfly.
+
+Also WildFly 9 is coming with more features, but also new versions of JSR implementations, and thus becoming Java EE 7+ application server.
+
+Gradually the WildFly community gathering went into Java EE BOF, where there was a panel of spec leads and also including Juergen Holler of Spring Framework. THe discussion boiled down to sad current state of EE 7: Experts keep asking for input on EE 8, while there is not enough experience with EE 7, because there is still no compliant server with commercial support for EE7.
+
+Also there are some people that would like to see modularity. But that's probably those with unfortunate IT operations, when they're stuck with 5 year old application server, and cannot upgrade to e. g. newer JPA API. But since this would not work anyway, this requirement is pretty much off the table, careless of how persistent the comapliners are. 
+
+== Thursday
+
+Google demonstrated the design ideas behind Material design and the tooling they have to support it in Polymer and new Android SDK. However, it seems that polymer is not working with Firefox I had on the conference setup, although it was pretty recent one.
+
+Hari Haddiri had quite amusing talk on approaching functional programming, in Kotlin - JetBrains' JVM language.
+
+We also finally arrived at Monads. The point is, that if you don't understand Monads, it doesn't matter - just embrace functions as primitive elements, write less, more descriptive and deterministic code. The understanding of monads eventually become clear, as you start moving into pure function territory. "Once you've understood monads, you should also write a tutorial nobody else understands"
+
+google's cardboard vr is an inexpensive way to bring cirtual realitty to masses with smartphones with little expense.
+
+Erlang:
+
+What we want? Time Travel! When do we want it? Doesn't matter!
+
+Erlang started in tellecomunication with the need of no downtime. Yeasterday's telco business is today's web scale requirements. But in the end I didn't manage to learn much about how erlang works, as again 50% of the talk repeated the obvious functional mantras.
+
+Kubernetes is a project at Google for controlling the distributed part of Docker deployment. It has coordination services that manages to keep predefined number of containers and keeping their linked together.
+
+

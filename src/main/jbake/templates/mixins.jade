@@ -1,0 +1,20 @@
+
+mixin entry(post)
+  - teaser_class = attributes.teaser_class ?: "subheader clearfix"
+  - read_class = attributes.read_class ?: 'right'
+  - read_text = attributes.read_text ?: 'Read more'
+
+  if attributes.large
+    h4: a(href=post.uri) #{post.title} 
+  else 
+    h5: a(href=post.uri) #{post.title}
+  p: small
+    | Posted on #{post.date}
+    | 
+    if !empty(post.tags)
+      i.label.icon-tags
+        | 
+        each tag in post.tags
+          a(href="#{content.rootpath}/tag/#{tag}")= tag
+  p(class=teaser_class) !{post.body.substring(post.body.indexOf("<p>")+3, post.body.indexOf("</p>"))}
+    a(class=read_class, href=post.uri) !{read_text}

@@ -1,25 +1,37 @@
-doctype html
-html
-  include header.jade
-  body(onload="prettyPrint()")
-    div#wrap
-      include menu.jade
-      div.container
-        div.page-header
-          h1 Blog
+extends base.jade
 
-          each post in published_posts
-            a(href="#{post.uri}")
-              h1 #{post.title}
-            p #{formatter.format(post.date,"dd MMMM yyyy")}
-            p !{post.body}
+block body
+  .row
+    .large-4.columns
+      h1 Patrik Duditš
+    .large-8.columns
+      h1: small Development Blog
 
-          hr
+  .row
+    .large-4.columns#intro
+      p#about-me
+        | Patrik is Java architect currently focused at Java EE 6/7 located in Košice, Slovakia.
+        | 
+        
+        a(href="about.html")
+          strong >&nbsp;
+          | More about Patrik
 
-          p Older posts are available in the <a href="archive.html" shape="rect">archive</a>.
+      p#about-site These are my notes from my professional and hobby programming adventures.
 
-  include footer.jade
+    .large-8.columns#last-post
+      .panel
+        +entry(published_posts[0])(large=true)
 
+  .row
+    for post in published_posts.subList(1,4)
+      .large-4.columns
+        +entry(post)(read_class="tiny secondary right", read_text="<small>Read&gt;</small>")
+    if size(published_posts) > 4
+      .row
+        .small-8.small-centered.columns.text-center
+          a.button.small href="posts/"
+            See more posts
 
 
 

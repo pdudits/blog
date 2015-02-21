@@ -1,0 +1,55 @@
+include mixins.jade
+
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title
+      if content.title
+        | #{content.title}
+      else
+        | Blog of Patrik Duditš
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    meta(name='keywords', content='')
+    meta(name='generator', content='JBake')
+    script(src="http://use.edgefonts.net/pt-sans:n4,i4,n7,i7:all;raleway:n1:all.js")
+
+    block scripts
+    link(rel='stylesheet', href='#{content.rootpath}css/app.css')
+
+    // HTML5 shim, for IE6-8 support of HTML5 elements
+    // if lt IE 9
+    <!--[if lt IE 9]>
+    
+    script(src='#{content.rootpath}js/html5shiv.min.js')
+
+    <![endif]-->
+
+    // Fav icon
+    link(rel='shortcut icon', href='#{content.rootpath}favicon.ico')
+
+  body(onload="prettyPrint()")
+    block body
+
+    hr
+    footer.row
+      .large-6.columns
+        p
+          | &copy; Patrik Duditš #{formatter.format(new("java.util.Date"),"yyyy")} 
+          small  Built on Foundation. Baked by jBake. 
+      .large-6.columns
+        ul.inline-list.right
+          li
+            a(href="#{content.rootpath}/") Home
+    script
+      document.write('<script src=' + ('__proto__' in {} ? '#{content.rootpath}/js/vendor/zepto' : '#{content.rootpath}/js/vendor/jquery') + '.js><\/script>')
+    script src="#{content.rootpath}/js/foundation/foundation.js"
+    //- select foundation components from this array and add them to the one on the line below it
+    //- [:orbit, :cookie, :clearing, :magellan, :section, :alerts, :topbar, :joyride, :forms, :tooltips, :dropdown, :placeholder, :reveal]
+    
+    each component in ['topbar']
+      script(src="#{site.base_url}/javascripts/foundation/foundation.#{component}.js")
+    script
+      $(document).foundation()
